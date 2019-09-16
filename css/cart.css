@@ -1,0 +1,239 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main{
+    background-color: #E0E0E0 ;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    min-height: 100vh;
+}
+
+/* ###################################################### */
+.product{
+    background-color: white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ##########################  PRODUCT HEADER ############################ */
+.product_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.product_header_title{
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+}
+
+
+.product_header_pincode{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.product_header_lowest {
+    padding: 5px;
+}
+
+.product_header_lowest > button {
+    font-size: 10px;
+    background-color: #BEBEBE;
+    padding: 4px 6px;
+}
+
+.product_header_highest{
+    padding: 5px;   
+}
+
+.product_header_highest > button {
+    font-size: 10px;
+    background-color: #BEBEBE;
+    padding: 4px 6px;
+}
+
+.product_header_pincode_search{
+    padding: 5px;
+}
+
+.product_header_pincode_search > input {
+    border: 0px;
+    border-bottom: 1px solid grey;
+}
+
+.product_header_pincode_btn{
+    padding: 5px;
+}
+
+.product_header_pincode_btn > button{
+    font-size: 10px;
+    background-color: #BEBEBE;
+    padding: 4px 6px;
+}
+
+/* ##########################  PRODUCT ITEM ############################ */
+.product_item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.product_item_image{
+    padding: 10px;
+}
+
+.product_item_image_src{
+    height: 150px;
+    width: 100px;
+}
+
+.product_item_details{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.product_item_name{
+    font-size: 16px;
+}
+
+.product_item_price{
+    padding: 3px 0px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.product_item_delivery{
+    padding: 3px 0px;
+    font-size: 14px;
+
+}
+
+.product_item_num{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 3px 0px;
+}
+
+.minus_btn{
+    padding: 2px 0px;
+}
+
+.minus_btn button{
+    border: 0px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #A9A9A9;
+}
+
+.product_item_num_value{
+    padding: 2px 4px;
+}
+
+.plus_btn{
+    padding: 2px 0px;
+}
+
+.plus_btn button{
+    border: 0px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #A9A9A9;
+}
+
+.available{
+    padding: 2px 10px;
+    font-weight: bold;
+}
+
+/* ##########################  PRICE ############################ */
+.price{
+    background-color: white;
+    border-radius: 4px;
+    padding: 20px;
+    position: relative;
+    left: 50px;
+    top: 200px;
+    min-width: 350px;
+
+}
+
+.price_header{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.price_header_title{
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+}
+
+.price_details{
+    font-size: 17px;
+    padding: 20px 10px;
+    font-family: Arial, Helvetica, sans-serif; 
+}
+
+.price_details_total{
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.price_details_total_text{
+    font-weight: bold;
+}
+
+.price_details_total_value{
+    padding: 0px 20px;
+}
+
+.price_details_delivery{
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.price_details_delivery_text{
+    font-weight: bold;
+}
+
+.price_details_delivery_value{
+    padding: 0px 20px;
+}
+
+.price_details_payable{
+    padding: 50px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.price_details_payable_text{
+    font-weight: bold;
+}
+
+.price_details_payable_value{
+    padding: 0px 20px;
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> CART </title>
+        <link rel="stylesheet" type="text/css" href="../css/cart.css">
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+
+    <body>
+        <!-- MAIN STARTS HERE -->
+        <div class="main" id="main_id">
+
+            <!-- #######START OF PRODUCT####### -->
+            <div class="product">
+
+
+                <!--  *******START OF PRODUCT_HEADER******* -->
+                <div class="product_header">
+                    <div class="product_header_title">
+                        My Cart
+                    </div>
+                    <div class="product_header_pincode">
+                        <div class="product_header_lowest"> <button @click="lowest"> Lowest First </button> </div>
+                        <div class="product_header_highest"> <button @click="highest"> Highest First </button> </div>
+                        <div class="product_header_pincode_search">
+                            <input type="tel" placeholder="pincode" v-model="input_pin" required>
+                        </div>
+                        <!-- <div class="product_header_pincode_btn">
+                            <button name="btn" @click="check"> Check </button>
+                        </div> -->
+                    </div>
+                </div>
+                <!--  *******END OF PRODUCT_HEADER******* -->
+               
+                
+        
+
+                <!--  *******START OF PRODUCT_ITEM******* -->
+                <div v-for="item in filterProd">
+                    <childcomp :childprops="item" :pincode="input_pin"> 
+                        <img slot="prod_img" class="product_item_image_src" :src="item.img"> 
+                        <div class="product_item_name" slot="prod_name"> {{ item.name }} </div>
+                        <div class="product_item_price" slot="prod_price"> {{ item.price }} </div>
+                        <div class="product_item_delivery" slot="prod_delivery">
+                            Delivery:   <span v-if="item.delivery==0"> FREE </span>
+                                        <span v-if="item.delivery!=0"> {{ item.delivery }} </span>
+                        </div>                        
+                    </childcomp>
+                </div>
+                <!--  *******END OF PRODUCT_ITEM******* -->
+
+                
+            </div>
+            <!--  #######END OF PRODUCT####### -->
+
+                        
+
+            <!-- #######START OF PRICE####### -->
+            <div class="price" id="price_id">
+                <div class="price_header">
+                    <div class="price_header_title" id="example"> Price Details </div>
+                </div>
+                <div class="price_details">
+                    <div class="price_details_total">
+                        <div class="price_details_total_text">
+                                Total Price: 
+                        </div>
+                        <div class="price_details_total_value">
+                                {{ cart.total }}
+                        </div> 
+                    </div>
+
+                    <div class="price_details_delivery">
+                        <div class="price_details_delivery_text">
+                                Delivery Charges: 
+                        </div>
+                        <div class="price_details_delivery_value">
+                                {{ cart.delivery }}
+                        </div>  
+                    </div>
+
+                    <div class="price_details_payable">
+                        <div class="price_details_payable_text">
+                                Amount Payable: 
+                        </div>
+                        <div class="price_details_payable_value">
+                                {{ cart.payable }}
+                        </div> 
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- #######END OF PRICE####### -->
+
+        </div>
+        <!-- MAIN ENDS HERE -->
+
+<!-- ############################################################################################################################## -->
+
+        <!-- **************************************** TEMPLATE **************************************** -->
+        <script type="text/x-template" id="childtemp">
+            <div class="product_item">
+                
+                <div class="product_item_image">
+                    <slot name="prod_img"> </slot>
+                </div>
+
+                <!-- {{ childprops.name }} -->
+
+                <div class="product_item_details">
+                    
+                    <slot name="prod_name"> </slot>
+                    <slot name="prod_price"> </slot>
+                    <slot name="prod_delivery"> </slot>
+
+                    <div class="product_item_num">
+                        <div class="minus_btn">
+                            <button @click="dec"> - </button>
+                        </div>
+                        <div class="product_item_num_value"> {{ counter }} </div> <!--  {{ $data.mydata[0] }}  -->
+                        <div class="plus_btn">
+                            <button @click="inc"> + </button>
+                        </div>
+                        <!-- <div class="available" v-if="childprops.avail.includes(pincode)">
+                            Available
+                        </div>  -->
+                    </div>
+
+                </div>
+
+            </div>    
+        </script>
+        <!-- **************************************** TEMPLATE **************************************** -->
+
+
+
+        <!-- **************************************** SCRIPT **************************************** -->
+        <script>
+          
+        let vm= new Vue({
+                    el: '#main_id',
+                    data(){
+                        return {
+                            mydata: [],
+                            cart: {'total': 0, 'delivery': 0, 'payable': 0},
+                            input_pin: ''
+                        }
+                    },
+
+                    mounted : function(){
+                        this.getData()
+                    },
+
+                    methods:{
+                        getData(){  
+                            //fetch('http://www.mocky.io/v2/5d4150f33100006b00539276')
+                            fetch('http://demo4257344.mockable.io/product.json')
+                            .then(res => res.json())                            
+                            .then((data) => {
+                                for(let index in data){
+                                    // this.mydata[index] ={};
+                                    // //this.$set(this.mydata[index], this.mydata[index].name, data[index].product_meta.title );
+                                    // this.mydata[index].name = data[index].product_meta.title;
+                                    // this.mydata[index].img = data[index].product_meta.img;
+                                    // this.mydata[index].price = data[index].pricing.selling_price;
+                                    // this.mydata[index].delivery = data[index].pricing.delivery_charge;
+                                    // this.mydata[index].max = data[index].purchase_instructions.max_purchase_limit;
+                                    // this.mydata[index].avail = data[index].availability.unavailable_pincodes;
+
+                                    let obj = {};                                    
+                                    obj.img = data[index].product_meta.img;
+                                    obj.name = data[index].product_meta.title;
+                                    obj.price = data[index].pricing.selling_price;
+                                    obj.delivery = data[index].pricing.delivery_charge;
+                                    obj.max = data[index].purchase_instructions.max_purchase_limit;
+                                    obj.avail = data[index].availability.unavailable_pincodes;
+                                    this.mydata.push(obj);
+                                }
+                                console.log(this.mydata);
+                            });
+                        },
+                        
+                        update(ch,price,delivery){
+                            if(ch == '-'){
+                                this.cart.total-= price;
+                                this.cart.delivery-=delivery;
+                                this.cart.payable=this.cart.total+this.cart.delivery;
+                            }
+                            else{
+                                this.cart.total+= price;
+                                this.cart.delivery+=delivery;
+                                this.cart.payable=this.cart.total+this.cart.delivery;
+                            }
+                                
+                            //console.log(this.mydata[0].price);
+                        },
+
+                        check(){
+                            this.input_pin = document.querySelector(".product_header_pincode_search > input").value;
+                        },
+
+                        lowest(){
+                            this.mydata.sort( (a,b)=> a.price>b.price ? 1 : -1 );
+                        },
+
+                        highest(){
+                            this.mydata.sort( (a,b)=> a.price<b.price ? 1 : -1 );
+                        },
+
+                    },
+
+                    computed: {
+                        filterProd(){
+                            //let filter = new RegExp(this.input_pin,i);
+                            if(this.input_pin>0)
+                                return this.mydata.filter(x => x.avail.includes(this.input_pin));
+                            else
+                                return this.mydata;
+                        }
+                    },
+
+                    components: {
+                        'childcomp' :{
+                            props: ['childprops','pincode'],
+                            template: '#childtemp',
+                            data() {
+                                return {                                 
+                                  counter: 0
+                                }
+                            },
+                            methods: {
+                            
+                                dec(){
+                                    if(this.counter>0){
+                                        this.counter--;
+                                        let ch = '-';
+                                        vm.update(ch, this.childprops.price , this.childprops.delivery );
+                                    }
+                                },
+
+                                inc(){
+                                    max = this.childprops.max;
+                                    if(this.counter<max) {
+                                        this.counter++;
+                                        let ch = '+';
+                                        vm.update(ch, this.childprops.price , this.childprops.delivery );
+                                    }
+                                }
+                                
+                            }
+                        }
+                    },
+
+
+                });
+        </script>
+        <!-- **************************************** SCRIPT **************************************** -->
+
+
+
+    </body>
+</html>
